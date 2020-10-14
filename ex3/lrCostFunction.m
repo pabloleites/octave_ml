@@ -38,17 +38,17 @@ grad = zeros(size(theta));
 
 
 
-z = sigmoid(X*theta)
+z = sigmoid(X*theta);
 
-reg_theta = theta(2:end)
+reg_theta = theta(2:end);
 
-regularization = lambda * (reg_theta' * reg_theta) /(2*m)
+regularization = lambda * (reg_theta' * reg_theta) /(2*m);
 
-J = -(y'*log(z) + (1-y)' * log(1-z))./m + regularization
+J = -(y'*log(z) + (1-y)' * log(1-z))./m + regularization;
 
-mult = theta .* (ones(size(theta)) - eye(size(theta)))
+mult = theta .* (ones(size(theta)) - eye(size(theta)));
 
-grad = (X' * (z - y))./m + lambda .* mult ./ m
+grad = (X' * (z - y))./m + lambda .* mult ./ m;
 
 
 
