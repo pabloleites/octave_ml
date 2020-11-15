@@ -41,8 +41,9 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 yv = [1:num_labels] == y;
-
-h = sigmoid([ones(m,1) sigmoid([ones(m,1) X] * Theta1')] * Theta2');
+z2 = [ones(m,1) X] * Theta1';
+a2 = [ones(m,1) sigmoid(z2)];
+h = sigmoid(a2 * Theta2');
 
 result = -1 * (yv .* log(h) + (1-yv) .* log(1-h)) / m;
 
@@ -72,9 +73,17 @@ J = unreg + reg;
 %               first time.
 %
 
+err3 = h - yv;
 
+Theta2_grad = err3' * a2 / m;
 
+err2 = zeros(m,hidden_layer_size);
 
+for t = 1:m
+  err2(t,:) = Theta2(:,2:end)' * err3(t,:)' .* sigmoidGradient(z2(t,:))';
+endfor
+
+Theta1_grad = err2' * [ones(m,1) X] / m;
 
 
 
