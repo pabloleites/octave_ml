@@ -77,11 +77,7 @@ err3 = h - yv;
 
 Theta2_grad = err3' * a2 / m;
 
-err2 = zeros(m,hidden_layer_size);
-
-for t = 1:m
-  err2(t,:) = Theta2(:,2:end)' * err3(t,:)' .* sigmoidGradient(z2(t,:))';
-endfor
+err2 = err3 * Theta2(:,2:end) .* sigmoidGradient(z2);
 
 Theta1_grad = err2' * [ones(m,1) X] / m;
 
@@ -95,12 +91,9 @@ Theta1_grad = err2' * [ones(m,1) X] / m;
 %               and Theta2_grad from Part 2.
 %
 
+Theta2_grad = Theta2_grad + lambda * [zeros(num_labels,1) Theta2(:,2:end)] / m;
 
-
-
-
-
-
+Theta1_grad = Theta1_grad + lambda * [zeros(hidden_layer_size,1) Theta1(:,2:end)] / m;
 
 
 
