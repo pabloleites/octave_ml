@@ -26,9 +26,8 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
-
-
-
+boolmat = bsxfun(@eq,idx,1:K);
+centroids = ((X' * boolmat) ./ sum(boolmat))';
 
 
 

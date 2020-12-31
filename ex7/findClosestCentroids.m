@@ -22,7 +22,16 @@ idx = zeros(size(X,1), 1);
 %
 
 
-
+for i=1:size(X,1)
+  dist = Inf;
+  for j=1:K
+    act_dist = sum((X(i,:) - centroids(j,:)).^2);
+    if act_dist < dist
+      idx(i) = j;
+      dist = act_dist;
+    endif
+  endfor
+endfor
 
 
 
